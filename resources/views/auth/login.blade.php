@@ -6,6 +6,22 @@
             </a>
         </x-slot>
 
+        <x-slot name="register">
+            <div>
+                {{ __('Don\'t have an account?') }}
+            </div>
+            
+            <x-button id="register-button" type="button" class="mt-3">
+                {{ __('Register') }}
+            </x-button>
+
+            <script type="text/javascript">
+                document.getElementById("register-button").onclick = function () {
+                    location.href = "/register";
+                };
+            </script>
+        </x-slot>
+
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
