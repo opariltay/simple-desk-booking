@@ -19,6 +19,8 @@ class UserCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
+    // TODO: Validations needs to be implemented for Create and Update operations.
+
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      * 
