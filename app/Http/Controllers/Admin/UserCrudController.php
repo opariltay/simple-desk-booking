@@ -19,8 +19,6 @@ class UserCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
-    // TODO: Validations needs to be implemented for Create and Update operations.
-
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      * 
@@ -55,7 +53,9 @@ class UserCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation([
-            // 'name' => 'required|min:2',
+            'name' => 'required|min:3',
+            'email' => 'required|email',
+            'password' => 'required|min:6',
         ]);
 
         CRUD::field('name');
@@ -72,7 +72,15 @@ class UserCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        CRUD::setValidation([
+            'name' => 'required|min:3',
+            'email' => 'required|email',
+        ]);
+
+        CRUD::field('name');
+        CRUD::field('email');
+        CRUD::field('password');
+        CRUD::field('is_admin')->type('boolean');
     }
 
     protected function setupShowOperation()
