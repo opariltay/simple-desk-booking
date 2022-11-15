@@ -18,10 +18,6 @@ class LocationCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
-    // TODO - this CRUD needs to be tested and finalised. 
-    // List/Create/Update operations & validations
-    // Items displayed on the screen must be checked and missing ones needs to be added.
-
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
      * 

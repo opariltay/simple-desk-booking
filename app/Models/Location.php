@@ -20,4 +20,15 @@ class Location extends Model
         'work_start_time',
         'work_finish_time',
     ];
+
+    public function getWorkStartTimeAttribute($value)
+    {
+        return \Carbon\Carbon::createFromFormat('H:i:s', $value)->format('H:i');
+    }
+
+    public function getWorkFinishTimeAttribute($value)
+    {
+        return \Carbon\Carbon::createFromFormat('H:i:s', $value)->format('H:i');
+    }
+
 }
