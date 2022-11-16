@@ -41,6 +41,7 @@ class LocationCrudController extends CrudController
         CRUD::column('name');
         CRUD::column('work_start_time');
         CRUD::column('work_finish_time');
+        CRUD::column('capacity');
     }
 
     /**
@@ -53,6 +54,7 @@ class LocationCrudController extends CrudController
     {
         CRUD::setValidation([
             'name' => 'required|min:3',
+            'capacity' => 'required|numeric|gte:0',
             'work_start_time' => 'required|date_format:H:i',
             'work_finish_time' => 'required|date_format:H:i|after:work_start_time',
         ]);
@@ -60,6 +62,7 @@ class LocationCrudController extends CrudController
         CRUD::field('name');
         CRUD::field('work_start_time');
         CRUD::field('work_finish_time');
+        CRUD::field('capacity');
     }
 
     /**

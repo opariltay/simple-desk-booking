@@ -19,6 +19,7 @@ class Location extends Model
         'name',
         'work_start_time',
         'work_finish_time',
+        'capacity',
     ];
 
     public function getWorkStartTimeAttribute($value)

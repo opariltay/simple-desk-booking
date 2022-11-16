@@ -18,6 +18,7 @@ class CreateLocationsTable extends Migration
             $table->string('name')->unique();
             $table->time('work_start_time');
             $table->time('work_finish_time');
+            $table->unsignedSmallInteger('capacity')->default(0);
             $table->timestamps();
         });
     }
