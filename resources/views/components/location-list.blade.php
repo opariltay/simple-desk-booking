@@ -16,7 +16,7 @@ $locations = App\Models\Location::orderBy('name', 'ASC')->get();
                         </button>
                     </h2>
                     <div id="accordion-color-body-{{ $location->id }}" class="" aria-labelledby="accordion-color-heading-{{ $location->id }}">
-                        <div class="p-5 font-light border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+                        <div class="px-5 pb-5 font-light border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
                             <x-reservation-calendar></x-reservation-calendar>
                         </div>
                     </div>
