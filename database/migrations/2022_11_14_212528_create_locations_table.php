@@ -15,11 +15,13 @@ class CreateLocationsTable extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->time('work_start_time');
             $table->time('work_finish_time');
             $table->unsignedSmallInteger('capacity')->default(0);
             $table->timestamps();
+            $table->softDeletes();
+            $table->unique(['name', 'deleted_at']);
         });
     }
 
