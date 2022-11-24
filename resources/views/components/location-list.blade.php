@@ -1,5 +1,5 @@
 @php
-$locations = App\Models\Location::orderBy('name', 'ASC')->get();
+$locations = \App\Models\Location::orderBy('name', 'ASC')->get();
 @endphp
 
 <div class="py-12">

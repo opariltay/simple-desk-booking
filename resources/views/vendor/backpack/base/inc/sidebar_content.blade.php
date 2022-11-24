@@ -3,3 +3,4 @@
 
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="nav-icon la la-question"></i> Users</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('location') }}"><i class="nav-icon la la-question"></i> Locations</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('reservation') }}"><i class="nav-icon la la-question"></i> Reservations</a></li>
