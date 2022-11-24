@@ -38,8 +38,8 @@ class ReservationCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('user_id');
-        CRUD::column('location_id');
+        CRUD::column('user');
+        CRUD::column('location');
         CRUD::column('reservation_date');
     }
 
@@ -51,9 +51,10 @@ class ReservationCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        // TODO
         CRUD::setValidation([
-            // 'name' => 'required|min:2',
+            'user_id' => 'required|numeric|exists:users,id',
+            'location_id' => 'required|numeric|exists:locations,id',
+            'reservation_date' => 'required|date|after:yesterday',
         ]);
 
         $users = \App\Models\User::orderBy('name', 'ASC')->pluck('name', 'id');
@@ -89,5 +90,11 @@ class ReservationCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    protected function setupShowOperation()
+    {
+        $this->setupListOperation();
+        $this->autoSetupShowOperation();
     }
 }

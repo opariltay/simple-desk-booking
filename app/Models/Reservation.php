@@ -29,4 +29,20 @@ class Reservation extends Model
         'location_id',
         'reservation_date',
     ];
+
+    /**
+     * Get the user that owns the reservation.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the location that owns the reservation.
+     */
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
 }
