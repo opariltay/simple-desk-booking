@@ -3,26 +3,19 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
-use App\Library\Calendar;
 
 class ReservationCalendar extends Component
 {
     public $content;
-    public $location_id;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($content)
     {
-        $calendar = new Calendar();
-
-        // TODO - reservations will be added to the calendar.
-        //$calendar->add_event('Holiday', '2022-11-29');
-        
-        $this->content = $calendar;
+        $this->content = $content;
     }
 
     /**

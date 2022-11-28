@@ -19,7 +19,13 @@ $locations = \App\Models\Location::orderBy('name', 'ASC')->get();
                         <div class="px-5 py-5 font-light border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
                             <p><span class="font-bold">{{ __('Working Hours') }}:</span> {{ $location->work_start_time }} - {{ $location->work_finish_time }}</p>
                             <p><span class="font-bold">{{ __('Capacity') }}:</span> {{ $location->capacity }}</p>
-                            <x-reservation-calendar></x-reservation-calendar>
+
+                            @component('components.reservation-calendar', 
+                                [
+                                    'content' => \App\Http\Controllers\CalendarController::get_calendar_content($location->id),
+                                ])
+                            @endcomponent
+
                         </div>
                     </div>
                     @endforeach
