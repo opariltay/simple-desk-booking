@@ -57,6 +57,8 @@ class ReservationCrudController extends CrudController
             'reservation_date' => 'required|date|after:yesterday',
         ]);
 
+        // TODO: available capacity for the location must be validated before creating/updating a reservation!
+
         $users = \App\Models\User::orderBy('name', 'ASC')->pluck('name', 'id');
         $locations = \App\Models\Location::orderBy('name', 'ASC')->pluck('name', 'id');
 

@@ -8,6 +8,7 @@ use App\Library\Calendar;
 class ReservationCalendar extends Component
 {
     public $content;
+    public $location_id;
 
     /**
      * Create a new component instance.
@@ -16,7 +17,12 @@ class ReservationCalendar extends Component
      */
     public function __construct()
     {
-        $this->content = new Calendar();
+        $calendar = new Calendar();
+
+        // TODO - reservations will be added to the calendar.
+        //$calendar->add_event('Holiday', '2022-11-29');
+        
+        $this->content = $calendar;
     }
 
     /**
