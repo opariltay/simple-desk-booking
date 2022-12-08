@@ -6,14 +6,15 @@ class Calendar {
 
     private $active_year, $active_month, $active_day;
     private $events = [];
-    public $start_date, $end_date;
+    public $start_date, $end_date, $location_id;
 
-    public function __construct($date = null) {
+    public function __construct($location_id, $date = null) {
         $this->active_year = $date != null ? date('Y', strtotime($date)) : date('Y');
         $this->active_month = $date != null ? date('m', strtotime($date)) : date('m');
         $this->active_day = $date != null ? date('d', strtotime($date)) : date('d');
         $this->start_date = $this->get_calendar_start_date()->toDateString();
         $this->end_date = $this->get_calendar_end_date()->toDateString();
+        $this->location_id = $location_id;
     }
 
     public function add_event($txt, $date, $days = 1, $color = '') {
@@ -93,7 +94,7 @@ class Calendar {
         for ($i = $first_day_of_week; $i > 0; $i--) {
             $n = ($num_days_last_month-$i+1);
 
-            $html .= '<div class="day_num ignore" data-modal-toggle="reservationModal" onclick="updateReservationModal(\'' . $this->calculate_date(-1, $n) . '\');">';
+            $html .= '<div class="day_num ignore" data-modal-toggle="reservationModal" onclick="updateReservationModal(' . $this->location_id . ', \'' . $this->calculate_date(-1, $n) . '\');">';
             $html .= '<span>' . $n . '</span>';
             $html .= $this->print_event(-1, $n);
             $html .= '</div>';
@@ -103,13 +104,13 @@ class Calendar {
             if ($i == $this->active_day) {
                 $selected = ' selected';
             }
-            $html .= '<div class="day_num' . $selected . '" data-modal-toggle="reservationModal" onclick="updateReservationModal(\'' . $this->calculate_date(0, $i) . '\');">';
+            $html .= '<div class="day_num' . $selected . '" data-modal-toggle="reservationModal" onclick="updateReservationModal(' . $this->location_id . ', \'' . $this->calculate_date(0, $i) . '\');">';
             $html .= '<span>' . $i . '</span>';
             $html .= $this->print_event(0, $i);
             $html .= '</div>';
         }
         for ($i = 1; $i <= (42-$num_days-max($first_day_of_week, 0)); $i++) {
-            $html .= '<div class="day_num ignore" data-modal-toggle="reservationModal" onclick="updateReservationModal(\'' . $this->calculate_date(1, $i) . '\');">';
+            $html .= '<div class="day_num ignore" data-modal-toggle="reservationModal" onclick="updateReservationModal(' . $this->location_id . ', \'' . $this->calculate_date(1, $i) . '\');">';
             $html .= '<span>' . $i . '</span>';
             $html .= $this->print_event(1, $i);
             $html .= '</div>';

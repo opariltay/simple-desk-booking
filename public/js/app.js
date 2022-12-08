@@ -5048,10 +5048,24 @@ __webpack_require__.r(__webpack_exports__);
 
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"];
 alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].start();
-function updateReservationModal(dateStr) {
-  var dtDate = new Date(dateStr);
+function updateReservationModal(locationId, reservationDate) {
+  var dtReservationDate = new Date(reservationDate);
+  var token = document.querySelector('meta[name="csrf-token"]').content;
   var containerReservationDate = document.getElementById('reservationDate');
-  containerReservationDate.innerText = dtDate.toDateString();
+  var containerReservationList = document.getElementById('reservationList');
+  containerReservationDate.innerText = '';
+  containerReservationList.innerText = '';
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      containerReservationDate.innerText = dtReservationDate.toDateString();
+      containerReservationList.innerText = this.responseText;
+    }
+  };
+  xhttp.open("POST", "/reservations/list");
+  xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhttp.setRequestHeader("X-CSRF-TOKEN", token);
+  xhttp.send("location_id=" + locationId + "&reservation_date=" + reservationDate);
 }
 window.updateReservationModal = updateReservationModal;
 
