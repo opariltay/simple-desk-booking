@@ -44,16 +44,19 @@ class Calendar {
      * 1 = next month
      * ELSE = current month
      */
-    public function print_event($month, $day) {
-        $day_compared = date('y-m-d', strtotime($this->active_year . '-' . $this->active_month . '-1'));
+    public function calculate_date($month, $day) {
+        $result = date('y-m-d', strtotime($this->active_year . '-' . $this->active_month . '-1'));
         if ($month == -1) {
-            $day_compared = date('y-m-d', strtotime($day_compared . ' -1 month'));
+            $result = date('y-m-d', strtotime($result . ' -1 month'));
         } elseif ($month == 1) {
-            $day_compared = date('y-m-d', strtotime($day_compared . ' +1 month'));
+            $result = date('y-m-d', strtotime($result . ' +1 month'));
         }
-        $day_compared = date('y-m-d', strtotime($day_compared . ' +' . ($day-1) . ' day'));
-        
+        return date('y-m-d', strtotime($result . ' +' . ($day-1) . ' day'));
+    }
+
+    public function print_event($month, $day) {
         $result = '';
+        $day_compared = $this->calculate_date($month, $day);
         
         foreach ($this->events as $event) {
             for ($d = 0; $d <= ($event[2]-1); $d++) {
