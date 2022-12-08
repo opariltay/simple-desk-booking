@@ -35,3 +35,5 @@ $locations = \App\Models\Location::orderBy('name', 'ASC')->get();
         </div>
     </div>
 </div>
+
+<x-reservation-modal></x-reservation-modal>

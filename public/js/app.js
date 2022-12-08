@@ -5048,6 +5048,12 @@ __webpack_require__.r(__webpack_exports__);
 
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"];
 alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].start();
+function updateReservationModal(dateStr) {
+  var dtDate = new Date(dateStr);
+  var containerReservationDate = document.getElementById('reservationDate');
+  containerReservationDate.innerText = dtDate.toDateString();
+}
+window.updateReservationModal = updateReservationModal;
 
 /***/ }),
 

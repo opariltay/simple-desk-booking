@@ -45,13 +45,13 @@ class Calendar {
      * ELSE = current month
      */
     public function calculate_date($month, $day) {
-        $result = date('y-m-d', strtotime($this->active_year . '-' . $this->active_month . '-1'));
+        $result = date('Y-m-d', strtotime($this->active_year . '-' . $this->active_month . '-1'));
         if ($month == -1) {
-            $result = date('y-m-d', strtotime($result . ' -1 month'));
+            $result = date('Y-m-d', strtotime($result . ' -1 month'));
         } elseif ($month == 1) {
-            $result = date('y-m-d', strtotime($result . ' +1 month'));
+            $result = date('Y-m-d', strtotime($result . ' +1 month'));
         }
-        return date('y-m-d', strtotime($result . ' +' . ($day-1) . ' day'));
+        return date('Y-m-d', strtotime($result . ' +' . ($day-1) . ' day'));
     }
 
     public function print_event($month, $day) {
@@ -60,7 +60,7 @@ class Calendar {
         
         foreach ($this->events as $event) {
             for ($d = 0; $d <= ($event[2]-1); $d++) {
-                if ($day_compared == date('y-m-d', strtotime($event[1]))) {
+                if ($day_compared == date('Y-m-d', strtotime($event[1]))) {
                     $result .= '<div class="event' . $event[3] . '">';
                     $result .= $event[0];
                     $result .= '</div>';
@@ -93,7 +93,7 @@ class Calendar {
         for ($i = $first_day_of_week; $i > 0; $i--) {
             $n = ($num_days_last_month-$i+1);
 
-            $html .= '<div class="day_num ignore">';
+            $html .= '<div class="day_num ignore" data-modal-toggle="reservationModal" onclick="updateReservationModal(\'' . $this->calculate_date(-1, $n) . '\');">';
             $html .= '<span>' . $n . '</span>';
             $html .= $this->print_event(-1, $n);
             $html .= '</div>';
@@ -103,13 +103,13 @@ class Calendar {
             if ($i == $this->active_day) {
                 $selected = ' selected';
             }
-            $html .= '<div class="day_num' . $selected . '">';
+            $html .= '<div class="day_num' . $selected . '" data-modal-toggle="reservationModal" onclick="updateReservationModal(\'' . $this->calculate_date(0, $i) . '\');">';
             $html .= '<span>' . $i . '</span>';
             $html .= $this->print_event(0, $i);
             $html .= '</div>';
         }
         for ($i = 1; $i <= (42-$num_days-max($first_day_of_week, 0)); $i++) {
-            $html .= '<div class="day_num ignore">';
+            $html .= '<div class="day_num ignore" data-modal-toggle="reservationModal" onclick="updateReservationModal(\'' . $this->calculate_date(1, $i) . '\');">';
             $html .= '<span>' . $i . '</span>';
             $html .= $this->print_event(1, $i);
             $html .= '</div>';
