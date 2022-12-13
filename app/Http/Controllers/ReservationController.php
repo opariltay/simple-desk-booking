@@ -47,17 +47,13 @@ class ReservationController extends Controller
 
         // TODO: available capacity for the location must be validated before creating/updating a reservation!
         
-        $user = \Auth::user();
+        $user_id = \Auth::user()->id;
         $location_id = $request->get('location_id');
         $reservation_date = $request->get('reservation_date');
 
-        $reservation = Reservation::where('user_id', $user->id)
-            ->where('location_id', $location_id)
-            ->where('reservation_date', $reservation_date)->first();
-
-        if ( !isset($reservation) ) {
+        if (!ReservationController::hasReservation($user_id, $location_id, $reservation_date)) {
             $reservation_details = [
-                'user_id' => $user->id,
+                'user_id' => $user_id,
                 'location_id' => $location_id,
                 'reservation_date' => $reservation_date,
             ];
@@ -82,19 +78,29 @@ class ReservationController extends Controller
             'reservation_date' => 'required|date',
         ]);
 
-        $user = \Auth::user();
+        $user_id = \Auth::user()->id;
         $location_id = $request->get('location_id');
         $reservation_date = $request->get('reservation_date');
 
-        $reservation = Reservation::where('user_id', $user->id)
-            ->where('location_id', $location_id)
-            ->where('reservation_date', $reservation_date)->first();
+        $reservation = ReservationController::getReservation($user_id, $location_id, $reservation_date);
         
-        if ( isset($reservation) ) {
+        if (isset($reservation)) {
             $reservation->delete();
             return redirect('dashboard')->withSuccess(__('Reservation canceled!'));
         } else {
             return redirect('dashboard')->withErrors(__('You don\'t have a reservation for this day!'));
         }
+    }
+
+    public static function hasReservation($user_id, $location_id, $reservation_date) {
+        return ReservationController::getReservation($user_id, $location_id, $reservation_date) != null;
+    }
+
+    public static function getReservation($user_id, $location_id, $reservation_date) {
+        $reservation = Reservation::where('user_id', $user_id)
+            ->where('location_id', $location_id)
+            ->where('reservation_date', $reservation_date)->first();
+
+        return isset($reservation) ? $reservation : null;
     }
 }

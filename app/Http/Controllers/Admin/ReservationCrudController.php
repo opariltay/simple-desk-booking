@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Reservation;
+use App\Http\Controllers\ReservationController;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -113,13 +114,9 @@ class ReservationCrudController extends CrudController
         $location_id = $request->get('location_id');
         $reservation_date = $request->get('reservation_date');
 
-        $reservation = Reservation::where('user_id', $user_id)
-            ->where('location_id', $location_id)
-            ->where('reservation_date', $reservation_date)->first();
-
         // TODO: available capacity for the location must be validated before creating/updating a reservation!
         
-        if ( !isset($reservation) ) {
+        if (!ReservationController::hasReservation($user_id, $location_id, $reservation_date)) {
             $this->crud->unsetValidation(); // validation has already been run
             return $this->traitStore();
         }
@@ -141,13 +138,9 @@ class ReservationCrudController extends CrudController
         $location_id = $request->get('location_id');
         $reservation_date = $request->get('reservation_date');
 
-        $reservation = Reservation::where('user_id', $user_id)
-            ->where('location_id', $location_id)
-            ->where('reservation_date', $reservation_date)->first();
-
         // TODO: available capacity for the location must be validated before creating/updating a reservation!
         
-        if ( !isset($reservation) ) {
+        if (!ReservationController::hasReservation($user_id, $location_id, $reservation_date)) {
             $this->crud->unsetValidation(); // validation has already been run
             return $this->traitUpdate();
         }
