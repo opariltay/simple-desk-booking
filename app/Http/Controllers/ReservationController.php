@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reservation;
+use App\Models\Location;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -45,24 +46,24 @@ class ReservationController extends Controller
             'reservation_date' => 'required|date|after:yesterday',
         ]);
 
-        // TODO: available capacity for the location must be validated before creating/updating a reservation!
-        
         $user_id = \Auth::user()->id;
         $location_id = $request->get('location_id');
         $reservation_date = $request->get('reservation_date');
 
-        if (!ReservationController::hasReservation($user_id, $location_id, $reservation_date)) {
-            $reservation_details = [
-                'user_id' => $user_id,
-                'location_id' => $location_id,
-                'reservation_date' => $reservation_date,
-            ];
-
-            Reservation::create($reservation_details);
-            return redirect('dashboard')->withSuccess(__('Reservation completed!'));
-        } else {
+        if ( ReservationController::hasReservation($user_id, $location_id, $reservation_date) ) {
             return redirect('dashboard')->withErrors(__('You already have a reservation for this day!'));
+        } else if ( !ReservationController::hasAvailableCapacity($location_id, $reservation_date) ) {
+            return redirect('dashboard')->withErrors(__('Location has no available capacity for this day!'));
         }
+
+        $reservation_details = [
+            'user_id' => $user_id,
+            'location_id' => $location_id,
+            'reservation_date' => $reservation_date,
+        ];
+
+        Reservation::create($reservation_details);
+        return redirect('dashboard')->withSuccess(__('Reservation completed!'));
     }
 
     /**
@@ -102,5 +103,22 @@ class ReservationController extends Controller
             ->where('reservation_date', $reservation_date)->first();
 
         return isset($reservation) ? $reservation : null;
+    }
+
+    public static function hasAvailableCapacity($location_id, $reservation_date, $reservation_id = null) {
+        $location = Location::where('id', $location_id)->firstOrFail();
+        $reservations = Reservation::where('location_id', $location_id)->where('reservation_date', $reservation_date)->get();
+
+        if ($reservation_id != null) {
+            // update mode
+            foreach ($reservations as $key => $reservation) {
+                if ($reservation->id == $reservation_id) {
+                    unset($reservations[$key]);
+                }
+            }
+        }
+
+        $available = $location->capacity - count($reservations);
+        return $available > 0;
     }
 }

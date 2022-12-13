@@ -114,13 +114,16 @@ class ReservationCrudController extends CrudController
         $location_id = $request->get('location_id');
         $reservation_date = $request->get('reservation_date');
 
-        // TODO: available capacity for the location must be validated before creating/updating a reservation!
-        
-        if (!ReservationController::hasReservation($user_id, $location_id, $reservation_date)) {
-            $this->crud->unsetValidation(); // validation has already been run
-            return $this->traitStore();
+        $redirect_url = config('backpack.base.route_prefix') . '/reservation/create';
+
+        if ( ReservationController::hasReservation($user_id, $location_id, $reservation_date) ) {
+            return redirect($redirect_url)->withErrors(__('User already has a reservation for this day!'));
+        } else if ( !ReservationController::hasAvailableCapacity($location_id, $reservation_date) ) {
+            return redirect($redirect_url)->withErrors(__('Location has no available capacity for this day!'));
         }
-        return redirect(config('backpack.base.route_prefix') . '/reservation/create')->withErrors(__('User already has a reservation for this day!'));
+        
+        $this->crud->unsetValidation(); // validation has already been run
+        return $this->traitStore();
     }
 
     /**
@@ -133,17 +136,20 @@ class ReservationCrudController extends CrudController
         $this->crud->setRequest($this->crud->validateRequest());
 
         $request = $this->crud->getRequest();
-        $id = $request->get('id');
+        $reservation_id = $request->get('id');
         $user_id = $request->get('user_id');
         $location_id = $request->get('location_id');
         $reservation_date = $request->get('reservation_date');
 
-        // TODO: available capacity for the location must be validated before creating/updating a reservation!
-        
-        if (!ReservationController::hasReservation($user_id, $location_id, $reservation_date)) {
-            $this->crud->unsetValidation(); // validation has already been run
-            return $this->traitUpdate();
+        $redirect_url = config('backpack.base.route_prefix') . '/reservation/' . $reservation_id . '/edit';
+
+        if ( ReservationController::hasReservation($user_id, $location_id, $reservation_date) ) {
+            return redirect($redirect_url)->withErrors(__('User already has a reservation for this day!'));
+        } else if ( !ReservationController::hasAvailableCapacity($location_id, $reservation_date, $reservation_id) ) {
+            return redirect($redirect_url)->withErrors(__('Location has no available capacity for this day!'));
         }
-        return redirect(config('backpack.base.route_prefix') . '/reservation/' . $id . '/edit')->withErrors(__('User already has a reservation for this day!'));
+
+        $this->crud->unsetValidation(); // validation has already been run
+        return $this->traitUpdate();
     }
 }
