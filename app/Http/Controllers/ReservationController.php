@@ -12,19 +12,24 @@ class ReservationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
+        $result = '';
+        $location_id = $request->get('location_id');
+        $reservation_date = $request->get('reservation_date');
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        if(!empty($location_id) && !empty($reservation_date)) {
+            $reservations = Reservation::where('location_id', $location_id)->where('reservation_date', $reservation_date)->get();
+
+            if (count($reservations) > 0) {
+                $result .= '<ol class="space-y-1 max-w-md list-decimal list-inside text-gray-500 dark:text-gray-400">';
+                foreach ($reservations as $reservation) {
+                    $result .= '<li>' . $reservation->user->name . '</li>';
+                }
+                $result .= '</ol>';
+            }
+        }
+        return $result;
     }
 
     /**
@@ -35,7 +40,7 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'location_id' => 'required|numeric|exists:locations,id',
             'reservation_date' => 'required|date|after:yesterday',
         ]);
@@ -58,72 +63,38 @@ class ReservationController extends Controller
             ];
 
             Reservation::create($reservation_details);
+            return redirect('dashboard')->withSuccess(__('Reservation completed!'));
+        } else {
+            return redirect('dashboard')->withErrors(__('You already have a reservation for this day!'));
         }
-
-        return redirect('dashboard');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Reservation  $reservation
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Reservation $reservation)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Reservation  $reservation
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Reservation $reservation)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Reservation  $reservation
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Reservation $reservation)
-    {
-        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Reservation  $reservation
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reservation $reservation)
+    public function destroy(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'location_id' => 'required|numeric|exists:locations,id',
+            'reservation_date' => 'required|date',
+        ]);
 
-    public function getReservationList(Request $request) {
-        $result = '';
+        $user = \Auth::user();
         $location_id = $request->get('location_id');
         $reservation_date = $request->get('reservation_date');
 
-        if(!empty($location_id) && !empty($reservation_date)) {
-            $reservations = Reservation::where('location_id', $location_id)->where('reservation_date', $reservation_date)->get();
-
-            if (count($reservations) > 0) {
-                $result .= '<ol class="space-y-1 max-w-md list-decimal list-inside text-gray-500 dark:text-gray-400">';
-                foreach ($reservations as $reservation) {
-                    $result .= '<li>' . $reservation->user->name . '</li>';
-                }
-                $result .= '</ol>';
-            }
+        $reservation = Reservation::where('user_id', $user->id)
+            ->where('location_id', $location_id)
+            ->where('reservation_date', $reservation_date)->first();
+        
+        if ( isset($reservation) ) {
+            $reservation->delete();
+            return redirect('dashboard')->withSuccess(__('Reservation canceled!'));
+        } else {
+            return redirect('dashboard')->withErrors(__('You don\'t have a reservation for this day!'));
         }
-        return $result;
     }
 }

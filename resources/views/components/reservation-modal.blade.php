@@ -14,7 +14,7 @@
                 <span id="reservationList"></span>
             </div>
             <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <form action="/reservation" method="POST">
+                <form action="{{ route('reservation.create') }}" method="POST">
                     @csrf
 
                     <button type="submit" class="flex justify-center items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -24,10 +24,17 @@
                     <input type="hidden" id="location_id" name="location_id" value="">
                     <input type="hidden" id="reservation_date" name="reservation_date" value="">
                 </form>
-                <button type="submit" class="flex justify-center items-center text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
-                    <svg class="w-6 h-6 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                    &nbsp;{{ __('Cancel Reservation') }}
-                </button>
+                <form action="{{ route('reservation.delete') }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+
+                    <button type="submit" class="flex justify-center items-center text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                        <svg class="w-6 h-6 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        &nbsp;{{ __('Cancel Reservation') }}
+                    </button>
+                    <input type="hidden" id="location_id" name="location_id" value="">
+                    <input type="hidden" id="reservation_date" name="reservation_date" value="">
+                </form>
             </div>
         </div>
     </div>

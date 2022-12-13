@@ -24,9 +24,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth','verified'])->name('dashboard');
 
 Route::group(['middleware' => ['auth','verified']], function () {
-    Route::post('/reservation/list', [ReservationController::class,'getReservationList']);
-    Route::post('/reservation', [ReservationController::class, 'store']);
-
+    Route::post('/reservation/list', [ReservationController::class,'index'])->name('reservation.index');
+    Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.create');
+    Route::delete('/reservation', [ReservationController::class, 'destroy'])->name('reservation.delete');
 });
 
 require __DIR__.'/auth.php';

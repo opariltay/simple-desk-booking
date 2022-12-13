@@ -6,5 +6,6 @@
     </x-slot>
 
     <x-error-list></x-error-list>
+    <x-success-list></x-success-list>
     <x-location-list></x-location-list>
 </x-app-layout>
