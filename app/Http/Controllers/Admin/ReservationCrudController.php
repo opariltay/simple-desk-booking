@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Reservation;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -13,7 +14,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 class ReservationCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
-    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
@@ -57,9 +58,6 @@ class ReservationCrudController extends CrudController
             'reservation_date' => 'required|date|after:yesterday',
         ]);
 
-        // TODO: available capacity for the location must be validated before creating/updating a reservation!
-        // TODO: if there's an existing reservation for the user, don't create a new one!!
-
         $users = \App\Models\User::orderBy('name', 'ASC')->pluck('name', 'id');
         $locations = \App\Models\Location::orderBy('name', 'ASC')->pluck('name', 'id');
 
@@ -99,5 +97,32 @@ class ReservationCrudController extends CrudController
     {
         $this->setupListOperation();
         $this->autoSetupShowOperation();
+    }
+
+    /**
+     * Store a newly created resource in the database.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store()
+    {
+        $this->crud->setRequest($this->crud->validateRequest());
+
+        $request = $this->crud->getRequest();
+        $user_id = $request->get('user_id');
+        $location_id = $request->get('location_id');
+        $reservation_date = $request->get('reservation_date');
+
+        $reservation = Reservation::where('user_id', $user_id)
+            ->where('location_id', $location_id)
+            ->where('reservation_date', $reservation_date)->first();
+
+        // TODO: available capacity for the location must be validated before creating/updating a reservation!
+
+        if ( !isset($reservation) ) {
+            $this->crud->unsetValidation(); // validation has already been run
+            return $this->traitStore();
+        }
+        return redirect(config('backpack.base.route_prefix') . '/reservation/create')->withErrors(__('User already has a reservation for this day!'));
     }
 }
