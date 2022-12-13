@@ -5,5 +5,6 @@
         </h2>
     </x-slot>
 
+    <x-error-list></x-error-list>
     <x-location-list></x-location-list>
 </x-app-layout>

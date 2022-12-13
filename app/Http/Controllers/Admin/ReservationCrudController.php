@@ -58,6 +58,7 @@ class ReservationCrudController extends CrudController
         ]);
 
         // TODO: available capacity for the location must be validated before creating/updating a reservation!
+        // TODO: if there's an existing reservation for the user, don't create a new one!!
 
         $users = \App\Models\User::orderBy('name', 'ASC')->pluck('name', 'id');
         $locations = \App\Models\Location::orderBy('name', 'ASC')->pluck('name', 'id');

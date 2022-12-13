@@ -5053,16 +5053,22 @@ function updateReservationModal(locationId, reservationDate) {
   var token = document.querySelector('meta[name="csrf-token"]').content;
   var containerReservationDate = document.getElementById('reservationDate');
   var containerReservationList = document.getElementById('reservationList');
+  var inputLocationId = document.getElementById('location_id');
+  var inputReservationDate = document.getElementById('reservation_date');
   containerReservationDate.innerText = '';
-  containerReservationList.innerText = '';
+  containerReservationList.innerHTML = '';
+  inputLocationId.value = '';
+  inputReservationDate.value = '';
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       containerReservationDate.innerText = dtReservationDate.toDateString();
-      containerReservationList.innerText = this.responseText;
+      containerReservationList.innerHTML = this.responseText;
+      inputLocationId.value = locationId;
+      inputReservationDate.value = reservationDate;
     }
   };
-  xhttp.open("POST", "/reservations/list");
+  xhttp.open("POST", "/reservation/list");
   xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhttp.setRequestHeader("X-CSRF-TOKEN", token);
   xhttp.send("location_id=" + locationId + "&reservation_date=" + reservationDate);

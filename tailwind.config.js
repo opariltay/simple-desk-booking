@@ -9,6 +9,15 @@ module.exports = {
         "./node_modules/flowbite/**/*.js"
     ],
 
+    safelist: [
+        'space-y-1',
+        'max-w-md',
+        'list-decimal',
+        'list-inside',
+        'text-gray-500',
+        'dark:text-gray-400',
+    ],
+
     theme: {
         extend: {
             fontFamily: {

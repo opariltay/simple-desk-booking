@@ -24,7 +24,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth','verified'])->name('dashboard');
 
 Route::group(['middleware' => ['auth','verified']], function () {
-    Route::post('/reservations/list', [ReservationController::class,'getReservationList']);
+    Route::post('/reservation/list', [ReservationController::class,'getReservationList']);
+    Route::post('/reservation', [ReservationController::class, 'store']);
+
 });
 
 require __DIR__.'/auth.php';
