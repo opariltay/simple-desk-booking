@@ -4,6 +4,8 @@ namespace App\Library;
 
 class Calendar {
 
+    // This calendar class is copied from: https://codeshack.io/event-calendar-php/	
+
     private $active_year, $active_month, $active_day;
     private $events = [];
     public $start_date, $end_date, $location_id;
