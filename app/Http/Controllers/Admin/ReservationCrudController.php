@@ -15,7 +15,7 @@ class ReservationCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation { store as traitStore; }
-    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
+    use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation { update as traitUpdate; }
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
@@ -118,11 +118,39 @@ class ReservationCrudController extends CrudController
             ->where('reservation_date', $reservation_date)->first();
 
         // TODO: available capacity for the location must be validated before creating/updating a reservation!
-
+        
         if ( !isset($reservation) ) {
             $this->crud->unsetValidation(); // validation has already been run
             return $this->traitStore();
         }
         return redirect(config('backpack.base.route_prefix') . '/reservation/create')->withErrors(__('User already has a reservation for this day!'));
+    }
+
+    /**
+     * Update the specified resource in the database.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update()
+    {
+        $this->crud->setRequest($this->crud->validateRequest());
+
+        $request = $this->crud->getRequest();
+        $id = $request->get('id');
+        $user_id = $request->get('user_id');
+        $location_id = $request->get('location_id');
+        $reservation_date = $request->get('reservation_date');
+
+        $reservation = Reservation::where('user_id', $user_id)
+            ->where('location_id', $location_id)
+            ->where('reservation_date', $reservation_date)->first();
+
+        // TODO: available capacity for the location must be validated before creating/updating a reservation!
+        
+        if ( !isset($reservation) ) {
+            $this->crud->unsetValidation(); // validation has already been run
+            return $this->traitUpdate();
+        }
+        return redirect(config('backpack.base.route_prefix') . '/reservation/' . $id . '/edit')->withErrors(__('User already has a reservation for this day!'));
     }
 }
