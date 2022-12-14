@@ -53,6 +53,17 @@
     color: #fff;
     word-wrap: break-word;
 }
+.event_sm {
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 3px 6px;
+    border-radius: 4px;
+    background-color: #f7c30d;
+    color: #fff;
+    word-wrap: break-word;
+}
+
 .calendar .days .day_num .event.green {
     background-color: #51ce57;
 }
@@ -62,6 +73,34 @@
 .calendar .days .day_num .event.red {
     background-color: #ce5151;
 }
+.event_sm.green {
+    background-color: #51ce57;
+}
+.event_sm.blue {
+    background-color: #518fce;
+}
+.event_sm.red {
+    background-color: #ce5151;
+}
+
+@media screen and (max-width: 640px) {
+    .event {
+        display: none;
+    }
+    .event_sm {
+        display: block;
+    }
+}
+
+@media screen and (min-width: 641px) {
+    .event {
+        display: block;
+    }
+    .event_sm {
+        display: none;
+    }
+}
+
 .calendar .days .day_num:nth-child(7n+1) {
     border-left: 1px solid #e6e9ea;
 }

@@ -64,9 +64,15 @@ class Calendar {
         foreach ($this->events as $event) {
             for ($d = 0; $d <= ($event[2]-1); $d++) {
                 if ($day_compared == date('Y-m-d', strtotime($event[1]))) {
-                    $result .= '<div class="event' . $event[3] . '">';
-                    $result .= $event[0];
-                    $result .= '</div>';
+                    $name = $event[0];
+                    $expr = '/(?<=\s|^)\w/iu';
+                    preg_match_all($expr, $name, $matches);
+
+                    $name_first_letters = implode('', $matches[0]);
+                    $name_first_letters = mb_strtoupper($name_first_letters);
+
+                    $result .= '<div class="event' . $event[3] . '">' . $name . '</div>';
+                    $result .= '<div class="event_sm' . $event[3] . '">' . $name_first_letters . '</div>';
                 }
             }
         }
