@@ -33,7 +33,11 @@ function updateReservationModal(locationId, reservationDate) {
     let containerReservationList = document.getElementById('reservationList');
     let inputsLocationId = document.getElementsByName('location_id');
     let inputsReservationDate = document.getElementsByName('reservation_date');
+    let buttonMakeReservation = document.getElementById('btnMakeReservation');
+    let buttonCancelReservation = document.getElementById('btnCancelReservation');
 
+    buttonMakeReservation.disabled = true;
+    buttonCancelReservation.disabled = true;
     containerReservationDate.innerText = '';
     containerReservationList.innerHTML = '';
     updateElementsValue(inputsLocationId, '');
@@ -42,6 +46,8 @@ function updateReservationModal(locationId, reservationDate) {
     const xhttp = new XMLHttpRequest();    
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+            buttonMakeReservation.disabled = false;
+            buttonCancelReservation.disabled = false;
             containerReservationDate.innerText = dtReservationDate.toDateString();
             containerReservationList.innerHTML = this.responseText;
             updateElementsValue(inputsLocationId, locationId);
