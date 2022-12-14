@@ -5048,6 +5048,23 @@ __webpack_require__.r(__webpack_exports__);
 
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"];
 alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].start();
+
+// Event listener for preventing multiple button clicks/submits
+document.addEventListener("DOMContentLoaded", function () {
+  preventMultipleSubmits();
+});
+function preventMultipleSubmits() {
+  var elements = document.getElementsByClassName("form-prevent-multiple-submits");
+  var preventMultipleSubmits = function preventMultipleSubmits() {
+    var button = this.querySelector('.button-prevent-multiple-submits');
+    button.disabled = true;
+    button.querySelector('.spinner').classList.remove("hidden");
+    button.querySelector('.spinner').classList.add("inline");
+  };
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].addEventListener('submit', preventMultipleSubmits, false);
+  }
+}
 function updateReservationModal(locationId, reservationDate) {
   var dtReservationDate = new Date(reservationDate);
   var token = document.querySelector('meta[name="csrf-token"]').content;

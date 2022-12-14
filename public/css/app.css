@@ -1454,6 +1454,15 @@ input:checked + .toggle-bg {
 .transform-none {
   transform: none;
 }
+@keyframes spin {
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
 .cursor-default {
   cursor: default;
 }
@@ -1686,6 +1695,9 @@ input:checked + .toggle-bg {
 }
 .fill-current {
   fill: currentColor;
+}
+.fill-blue-600 {
+  fill: #1C64F2;
 }
 .p-4 {
   padding: 1rem;
@@ -2291,6 +2303,10 @@ input:checked + .toggle-bg {
 .dark .dark\:text-red-600 {
   --tw-text-opacity: 1;
   color: rgb(224 36 36 / var(--tw-text-opacity));
+}
+.dark .dark\:text-gray-600 {
+  --tw-text-opacity: 1;
+  color: rgb(75 85 99 / var(--tw-text-opacity));
 }
 .dark .dark\:text-white {
   --tw-text-opacity: 1;

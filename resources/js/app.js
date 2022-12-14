@@ -6,6 +6,26 @@ window.Alpine = Alpine;
 
 Alpine.start();
 
+// Event listener for preventing multiple button clicks/submits
+document.addEventListener("DOMContentLoaded", function() {            
+    preventMultipleSubmits();
+});
+
+function preventMultipleSubmits() {
+    var elements = document.getElementsByClassName("form-prevent-multiple-submits");
+
+    var preventMultipleSubmits = function() {
+        var button = this.querySelector('.button-prevent-multiple-submits');
+        button.disabled = true;
+        button.querySelector('.spinner').classList.remove("hidden");
+        button.querySelector('.spinner').classList.add("inline");
+    };
+
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].addEventListener('submit', preventMultipleSubmits, false);
+    }
+}
+
 function updateReservationModal(locationId, reservationDate) {
     let dtReservationDate = new Date(reservationDate);    
     let token = document.querySelector('meta[name="csrf-token"]').content;
