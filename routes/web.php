@@ -24,9 +24,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth','verified'])->name('dashboard');
 
 Route::group(['middleware' => ['auth','verified']], function () {
-    Route::post('/reservation/list', [ReservationController::class,'index'])->name('reservation.index');
-    Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.create');
-    Route::delete('/reservation', [ReservationController::class, 'destroy'])->name('reservation.delete');
+    Route::post('/reservation/list', [ReservationController::class,'index'])->name('frontend.reservation.index');
+    Route::post('/reservation', [ReservationController::class, 'store'])->name('frontend.reservation.create');
+    Route::delete('/reservation', [ReservationController::class, 'destroy'])->name('frontend.reservation.delete');
 });
 
 require __DIR__.'/auth.php';
