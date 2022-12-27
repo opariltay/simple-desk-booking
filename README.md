@@ -2,8 +2,16 @@
 
 Simple Desk Booking is an easy-to-use desk booking software which allows users to reserve a full-day seat at the workplace.
 
+<br />
+
 ![Screenshot_1](https://user-images.githubusercontent.com/46761432/209721489-44500794-668c-4175-9068-c0a96494087c.png)
+
+<br />
+
 ![Screenshot_2](https://user-images.githubusercontent.com/46761432/209721497-4d5268e4-3af9-45d8-a30c-546e77c0687b.png)
+
+<br />
+
 ![Screenshot_3](https://user-images.githubusercontent.com/46761432/209721498-4eacff3e-fb8f-4d66-b688-679388050b2b.png)
 
 <br />
