@@ -14,6 +14,22 @@ Simple Desk Booking is an easy-to-use desk booking software which allows users t
 
 ## Installation
 
+1. Clone repository to your local machine (or production environment).
+2. Create a new database for the application.
+3. Create your .env file by cloning .env.example file.
+4. Update .env file with database connection details and proper environment settings.
+5. Run below command to install missing dependencies:
+
+    `composer install`
+    
+6. Run below command to generate your app key:
+
+    `php artisan key:generate`
+    
+7. Run below command to complete migrations on database:
+
+    `php artisan migrate`
+    
 
 ## Security Vulnerabilities
 
