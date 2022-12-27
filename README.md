@@ -2,6 +2,10 @@
 
 Simple Desk Booking is an easy-to-use desk booking software which allows users to reserve a full-day seat at the workplace.
 
+![Screenshot_1](https://user-images.githubusercontent.com/46761432/209721489-44500794-668c-4175-9068-c0a96494087c.png)
+![Screenshot_2](https://user-images.githubusercontent.com/46761432/209721497-4d5268e4-3af9-45d8-a30c-546e77c0687b.png)
+![Screenshot_3](https://user-images.githubusercontent.com/46761432/209721498-4eacff3e-fb8f-4d66-b688-679388050b2b.png)
+
 <br />
 <p align="center">
     <a href="https://laravel.com" target="_blank"><img src="https://user-images.githubusercontent.com/46761432/209677332-5e1bb549-e51b-4c26-8888-be48f5965748.svg" width="250"></a>
@@ -25,7 +29,7 @@ Simple Desk Booking is an easy-to-use desk booking software which allows users t
 6. Run below command to generate your app key:
 
     `php artisan key:generate`
-    
+
 7. Run below command to complete migrations on database:
 
     `php artisan migrate`
