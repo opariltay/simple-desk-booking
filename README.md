@@ -30,6 +30,12 @@ Simple Desk Booking is an easy-to-use desk booking software which allows users t
 
     `php artisan migrate`
     
+8. Run below command to create admin user (you must set credentials in .env file first):
+
+    `php artisan db:seed`
+
+9. Done. Now you can create locations for your company through admin panel and your users can register to start using the application.
+
 
 ## Security Vulnerabilities
 
