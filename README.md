@@ -58,3 +58,13 @@ section. All security vulnerabilities will be promptly addressed.
 ## License
 
 Simple Desk Booking is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Donations
+
+Simple Desk Booking is my first open source project and I'm going to contribute to other open source projects in the future.
+
+If you think this project helped you in any way and you want to support me on my journey, please feel free to send any amount through below methods.
+
+| GitHub Sponsors | Bitcoin | Ethereum |
+| ------ | ------- | ------- |
+| [![](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/opariltay) | ![1PVvDhjqkvYoiZQKbpUpgKYXHR4Dv29S5J](http://api.qrserver.com/v1/create-qr-code/?color=000000&bgcolor=FFFFFF&data=1PVvDhjqkvYoiZQKbpUpgKYXHR4Dv29S5J&qzone=1&margin=0&size=200x200&ecc=L)<br />1PVvDhjqkvYoiZQKbpUpgKYXHR4Dv29S5J | ![0x72c9f744fbc52462e3bcff81a4a536efef080639](http://api.qrserver.com/v1/create-qr-code/?color=000000&bgcolor=FFFFFF&data=0x72c9f744fbc52462e3bcff81a4a536efef080639&qzone=1&margin=0&size=200x200&ecc=L)<br />0x72c9f744fbc52462e3bcff81a4a536efef080639 |
