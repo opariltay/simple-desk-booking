@@ -13,3 +13,4 @@ public/packages/* linguist-vendored
 public/packages/** linguist-vendored
 (^|/)public/packages/ linguist-vendored
 
+public/js/app.js linguist-vendored
