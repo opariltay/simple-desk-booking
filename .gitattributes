@@ -9,4 +9,7 @@
 /.github export-ignore
 CHANGELOG.md export-ignore
 
+public/packages/* linguist-vendored
+public/packages/** linguist-vendored
+(^|/)public/packages/ linguist-vendored
 
