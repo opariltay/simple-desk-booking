@@ -20,7 +20,7 @@ Simple Desk Booking is an easy-to-use desk booking software which allows users t
     &nbsp;&nbsp;&nbsp;&nbsp;
     <img src="https://raw.githubusercontent.com/laravel/breeze/1.x/art/logo.svg" alt="Logo Laravel Breeze">
     &nbsp;&nbsp;&nbsp;&nbsp;
-    <a href="https://backpackforlaravel.com" title="Backpack Logo"><img src="https://camo.githubusercontent.com/50eeab913baf60d3e0dbc8bd4a7b35e1d18456fad04e353a75a4a444948b1a95/68747470733a2f2f6261636b7061636b666f726c61726176656c2e636f6d2f70726573656e746174696f6e2f696d672f6261636b7061636b2f6c6f676f732f6261636b7061636b5f6c6f676f5f636f6c6f722e706e673f763d32"></a>
+    <a href="https://backpackforlaravel.com" title="Backpack Logo"><img src="https://backpackforlaravel.com/presentation/img/backpack/logos/backpack_logo.svg" width="350px"></a>
 </p>
 <br />
 
